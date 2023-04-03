@@ -1,8 +1,10 @@
 package com.volacode.TimeAndAttendanceSystem.service.user;
 
 import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
+import com.volacode.TimeAndAttendanceSystem.data.request.ModifyEmployeeRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AddEmployeeResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TAAException;
+import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
 import com.volacode.TimeAndAttendanceSystem.models.TAAUser;
 import com.volacode.TimeAndAttendanceSystem.repositories.TAAUserRepository;
 import lombok.AllArgsConstructor;
@@ -28,8 +30,19 @@ public class UserServiceImpl implements  UserService{
 
         TAAUser user = mapper.map(request,TAAUser.class);
         TAAUser savedUser = repository.save(user);
-
         return addEmployeeBuilder(savedUser);
+    }
+
+    @Override
+    public String modifyEmployee(ModifyEmployeeRequest modifyRequest) {
+        TAAUser employeeToModify = repository.findById(modifyRequest.getId())
+                .orElseThrow(() -> new UserNotFoundException(
+                        String.format("Customer with id %d , not found", modifyRequest.getId())));
+
+        mapper.map(modifyRequest ,employeeToModify);
+        TAAUser  modifiedEmployee = repository.save(employeeToModify);
+
+        return String.format("%s details updated successfully", modifiedEmployee.getFirstName());
     }
 
 
