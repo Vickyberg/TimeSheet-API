@@ -1,7 +1,7 @@
 package com.volacode.TimeAndAttendanceSystem.data.response;
 
 
-import jakarta.persistence.Id;
+
 import lombok.*;
 
 @AllArgsConstructor
@@ -10,10 +10,11 @@ import lombok.*;
 @Setter
 @Builder
 
-public class AddEmployeeResponse {
+public class TAAUserResponse {
 
-    @Id
+
     private Long id;
+    private String email;
     private String message;
     private int code;
 

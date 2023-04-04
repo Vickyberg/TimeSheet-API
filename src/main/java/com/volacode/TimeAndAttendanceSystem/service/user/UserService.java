@@ -1,12 +1,17 @@
 package com.volacode.TimeAndAttendanceSystem.service.user;
 
-import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
-import com.volacode.TimeAndAttendanceSystem.data.request.ModifyEmployeeRequest;
-import com.volacode.TimeAndAttendanceSystem.data.response.AddEmployeeResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import com.volacode.TimeAndAttendanceSystem.data.response.TAAUserResponse;
+import com.volacode.TimeAndAttendanceSystem.models.TAAUser;
 
 public interface UserService {
 
-   AddEmployeeResponse addEmployee(AddEmployeeRequest request);
+   TAAUserResponse addEmployee(TAAUser request);
 
-   String  modifyEmployee(ModifyEmployeeRequest request);
+   TAAUserResponse modifyEmployee(Long id, JsonPatch userPatch) throws JsonPatchException, JsonProcessingException;
+
+   TAAUser getEmployeeById(Long id);
+
 }
