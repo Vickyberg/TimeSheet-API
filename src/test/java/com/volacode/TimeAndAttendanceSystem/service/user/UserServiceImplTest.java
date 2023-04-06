@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jackson.jsonpointer.JsonPointer;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.ReplaceOperation;
-import com.volacode.TimeAndAttendanceSystem.data.response.TAAUserResponse;
-import com.volacode.TimeAndAttendanceSystem.exceptions.TAAException;
+import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
+import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
 import com.volacode.TimeAndAttendanceSystem.models.Role;
-import com.volacode.TimeAndAttendanceSystem.models.TAAUser;
+import com.volacode.TimeAndAttendanceSystem.models.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,12 +28,12 @@ class UserServiceImplTest {
 
     @Autowired
     private UserService userService;
-    private TAAUser request;
+    private AppUser request;
 
 
     @BeforeEach
     void setup(){
-        request =  TAAUser
+        request =  AppUser
                 .builder()
                 .firstName("Victor")
                 .lastName("Olamide")
@@ -45,9 +45,9 @@ class UserServiceImplTest {
     void tearDown(){}
 
     @Test
-    void testThatWeCanAddAnEmployee()throws TAAException{
+    void testThatWeCanAddAnEmployee()throws TimeSheetException {
 
-        TAAUserResponse response =  userService.addEmployee(request);
+        AppUserResponse response =  userService.addEmployee(request);
         assertThat(response).isNotNull();
         assertThat(response.getMessage()).isNotNull();
         assertThat(response.getCode()).isEqualTo(201);
@@ -56,10 +56,10 @@ class UserServiceImplTest {
     }
 
     @Test
-    void  testThatWeCanModifyEmployee()throws TAAException {
+    void  testThatWeCanModifyEmployee()throws TimeSheetException,UserNotFoundException {
 
         ObjectMapper mapper = new ObjectMapper();
-        TAAUserResponse modifiedResponse = userService.addEmployee(request);
+        AppUserResponse modifiedResponse = userService.addEmployee(request);
         try{
             JsonNode value =mapper.readTree("\"Ope\"");
             JsonPatch patch = new JsonPatch(List.of(new ReplaceOperation(
@@ -71,15 +71,15 @@ class UserServiceImplTest {
         }
 
         assertThat(modifiedResponse).isNotNull();
-        assertThat(modifiedResponse.getCode()).isEqualTo(201);
-        assertThat(userService.getEmployeeById(1L).getFirstName()).isEqualTo("Ope");
+
+        assertThat(userService.getUserById(1L).getFirstName()).isEqualTo("Ope");
 
     }
 
     @Test
     void testThatWeCanGetEmployeeById() throws UserNotFoundException{
-        TAAUserResponse response = userService.addEmployee(request);
-        TAAUser foundEmployee = userService.getEmployeeById(response.getId());
+        AppUserResponse response = userService.addEmployee(request);
+        AppUser foundEmployee = userService.getUserById(response.getId());
 
             assertThat(foundEmployee).isNotNull();
             assertThat(foundEmployee.getId()).isEqualTo(response.getId());

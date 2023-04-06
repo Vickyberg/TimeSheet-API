@@ -5,12 +5,11 @@ package com.volacode.TimeAndAttendanceSystem.data.response;
 import lombok.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @Builder
-
-public class TAAUserResponse {
+public class AppUserResponse {
 
 
     private Long id;

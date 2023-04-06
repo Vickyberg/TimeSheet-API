@@ -1,8 +1,10 @@
 package com.volacode.TimeAndAttendanceSystem.models;
 
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -11,15 +13,15 @@ import lombok.*;
 @Setter
 @Entity
 @Builder
-
-public class TAAUser {
-
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private Role role;
-
+    @OneToOne
+    private TimeSheet timeSheet;
 }

@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TAAUserRequest {
+public class AppUserRequest {
 
 
     private String firstName;
