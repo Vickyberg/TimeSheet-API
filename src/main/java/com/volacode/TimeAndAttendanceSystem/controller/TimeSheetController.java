@@ -1,5 +1,6 @@
 package com.volacode.TimeAndAttendanceSystem.controller;
 
+import com.volacode.TimeAndAttendanceSystem.data.request.ClockOutRequest;
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
 import com.volacode.TimeAndAttendanceSystem.service.timesheet.TimeSheetService;
 import lombok.RequiredArgsConstructor;
@@ -12,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 public class TimeSheetController {
     private final TimeSheetService timeSheetService;
 
-    @PostMapping("/clock-in")
-    public ResponseEntity<String> clockIn(@RequestBody TimeSheetRequest timeSheetRequest) {
-        return ResponseEntity.ok(timeSheetService.clockIn(timeSheetRequest));
+    @PostMapping("/clock-in/{userId}")
+    public ResponseEntity<String> clockIn(@PathVariable long userId) {
+        return ResponseEntity.ok(timeSheetService.clockIn(userId));
     }
 
     @PostMapping("/clock-out")
-    public ResponseEntity<String> clockOut(@RequestBody TimeSheetRequest timeSheetRequest) {
-        return ResponseEntity.ok(timeSheetService.clockOut(timeSheetRequest));
+    public ResponseEntity<String> clockOut(@RequestBody ClockOutRequest clockOutRequest) {
+        return ResponseEntity.ok(timeSheetService.clockOut(clockOutRequest));
     }
 
     @PostMapping("/start-break/{userId}")
