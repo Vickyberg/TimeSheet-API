@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class AuthResonse {
+public class AuthResponse {
     private String token;
 
 }

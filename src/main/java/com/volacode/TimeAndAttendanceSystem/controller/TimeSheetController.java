@@ -1,6 +1,5 @@
 package com.volacode.TimeAndAttendanceSystem.controller;
 
-import com.volacode.TimeAndAttendanceSystem.data.request.ClockOutRequest;
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
 import com.volacode.TimeAndAttendanceSystem.service.timesheet.TimeSheetService;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +18,17 @@ public class TimeSheetController {
     }
 
     @PostMapping("/clock-out")
-    public ResponseEntity<String> clockOut(@RequestBody ClockOutRequest clockOutRequest) {
-        return ResponseEntity.ok(timeSheetService.clockOut(clockOutRequest));
+    public ResponseEntity<String> clockOut(@RequestBody TimeSheetRequest timeSheetRequest) {
+        return ResponseEntity.ok(timeSheetService.clockOut(timeSheetRequest));
     }
 
-    @PostMapping("/start-break/{userId}")
-    public ResponseEntity<String> startBreak(@PathVariable long userId) {
-        return ResponseEntity.ok(timeSheetService.startBreak(userId));
+    @PostMapping("/start-break")
+    public ResponseEntity<String> startBreak(@RequestBody TimeSheetRequest timeSheetRequest) {
+        return ResponseEntity.ok(timeSheetService.startBreak(timeSheetRequest));
     }
 
-    @PostMapping("/end-break/{userId}")
-    public ResponseEntity<String> endBreak(@PathVariable long userId) {
-        return ResponseEntity.ok(timeSheetService.endBreak(userId));
+    @PostMapping("/end-break")
+    public ResponseEntity<String> endBreak(@RequestBody TimeSheetRequest timeSheetRequest) {
+        return ResponseEntity.ok(timeSheetService.endBreak(timeSheetRequest));
     }
 }

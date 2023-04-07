@@ -1,7 +1,7 @@
 package com.volacode.TimeAndAttendanceSystem.controller;
 
 import com.volacode.TimeAndAttendanceSystem.security.service.AuthRequest;
-import com.volacode.TimeAndAttendanceSystem.security.service.AuthResonse;
+import com.volacode.TimeAndAttendanceSystem.security.service.AuthResponse;
 import com.volacode.TimeAndAttendanceSystem.security.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class LoginController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResonse> login(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(authService.login(authRequest));
     }
 

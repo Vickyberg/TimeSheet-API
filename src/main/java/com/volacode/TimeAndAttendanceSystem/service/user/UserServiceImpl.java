@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
-import com.volacode.TimeAndAttendanceSystem.data.request.EmployeeRequest;
+import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private ObjectMapper objectMapper = new ObjectMapper();
         private final PasswordEncoder passwordEncoder;
     @Override
-    public AppUserResponse addEmployee(EmployeeRequest request) {
+    public AppUserResponse addEmployee(AddEmployeeRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new TimeSheetException("User already exists");
@@ -41,10 +41,7 @@ public class UserServiceImpl implements UserService {
         return addUserBuilder(savedUser);
     }
 
-    @Override
-    public AppUser findById(long userId) {
-        return null;
-    }
+
 
     @Override
     public AppUserResponse addEmployee(AppUser request) {

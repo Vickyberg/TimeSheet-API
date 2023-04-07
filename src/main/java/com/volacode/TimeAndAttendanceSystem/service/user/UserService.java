@@ -3,7 +3,7 @@ package com.volacode.TimeAndAttendanceSystem.service.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
-import com.volacode.TimeAndAttendanceSystem.data.request.EmployeeRequest;
+import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.models.AppUser;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +20,7 @@ public interface UserService {
 
    AppUser findUserByEmail(String email) throws UsernameNotFoundException;
 
-   AppUserResponse addEmployee(EmployeeRequest request);
+   AppUserResponse addEmployee(AddEmployeeRequest request);
 
-   AppUser findById(long userId);
+
 }

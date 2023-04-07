@@ -3,7 +3,7 @@ package com.volacode.TimeAndAttendanceSystem.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
-import com.volacode.TimeAndAttendanceSystem.data.request.EmployeeRequest;
+import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
@@ -23,7 +23,7 @@ public class AppUserController {
 
 
     @PostMapping("/add-employee")
-    public ResponseEntity<?> addEmployee( @RequestBody EmployeeRequest request){
+    public ResponseEntity<?> addEmployee( @RequestBody AddEmployeeRequest request){
         return  ResponseEntity.status(HttpStatus.CREATED).body(userService.addEmployee(request));
     }
 

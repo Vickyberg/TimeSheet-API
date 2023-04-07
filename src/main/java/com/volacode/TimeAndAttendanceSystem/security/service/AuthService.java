@@ -19,7 +19,7 @@ public class AuthService {
     private final UserService userService;
     private final JwtService jwtService;
 
-    public AuthResonse login(AuthRequest authRequest) {
+    public AuthResponse login(AuthRequest authRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
@@ -31,6 +31,6 @@ public class AuthService {
         AppUser user = userService.findUserByEmail(authRequest.getEmail());
         SecureUser secureUser = new SecureUser(user);
         String token = jwtService.generateToken(secureUser);
-        return new AuthResonse(token);
+        return new AuthResponse(token);
     }
 }
