@@ -2,7 +2,7 @@ package com.volacode.TimeAndAttendanceSystem.controller;
 
 import com.volacode.TimeAndAttendanceSystem.data.request.PaymentSlipRequest;
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
-import com.volacode.TimeAndAttendanceSystem.service.timesheet.TimeSheetService;
+import com.volacode.TimeAndAttendanceSystem.service.timesheet.TimeSheetServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("api/timesheet")
 public class TimeSheetController {
-    private final TimeSheetService timeSheetService;
+    private final TimeSheetServiceImp timeSheetService;
 
     @PostMapping("/clock_in/{userId}")
     public ResponseEntity<String> clockIn(@PathVariable long userId) {
