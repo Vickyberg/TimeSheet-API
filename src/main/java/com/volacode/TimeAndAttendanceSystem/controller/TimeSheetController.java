@@ -1,5 +1,6 @@
 package com.volacode.TimeAndAttendanceSystem.controller;
 
+import com.volacode.TimeAndAttendanceSystem.data.request.PaymentSlipRequest;
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
 import com.volacode.TimeAndAttendanceSystem.service.timesheet.TimeSheetService;
 import lombok.RequiredArgsConstructor;
@@ -12,23 +13,28 @@ import org.springframework.web.bind.annotation.*;
 public class TimeSheetController {
     private final TimeSheetService timeSheetService;
 
-    @PostMapping("/clock-in/{userId}")
+    @PostMapping("/clock_in/{userId}")
     public ResponseEntity<String> clockIn(@PathVariable long userId) {
         return ResponseEntity.ok(timeSheetService.clockIn(userId));
     }
 
-    @PostMapping("/clock-out")
+    @PostMapping("/clock_out")
     public ResponseEntity<String> clockOut(@RequestBody TimeSheetRequest timeSheetRequest) {
         return ResponseEntity.ok(timeSheetService.clockOut(timeSheetRequest));
     }
 
-    @PostMapping("/start-break")
+    @PostMapping("/start_break")
     public ResponseEntity<String> startBreak(@RequestBody TimeSheetRequest timeSheetRequest) {
         return ResponseEntity.ok(timeSheetService.startBreak(timeSheetRequest));
     }
 
-    @PostMapping("/end-break")
+    @PostMapping("/end_break")
     public ResponseEntity<String> endBreak(@RequestBody TimeSheetRequest timeSheetRequest) {
         return ResponseEntity.ok(timeSheetService.endBreak(timeSheetRequest));
+    }
+
+    @PostMapping("/generate_payment_slip")
+    public ResponseEntity<String> generatePaymentSlip(@RequestBody PaymentSlipRequest paymentSlipRequest) {
+        return ResponseEntity.ok(timeSheetService.generatePaymentSlip(paymentSlipRequest));
     }
 }

@@ -1,5 +1,6 @@
 package com.volacode.TimeAndAttendanceSystem.service.timesheet;
 
+import com.volacode.TimeAndAttendanceSystem.data.request.PaymentSlipRequest;
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.models.TimeStamp;
@@ -8,8 +9,11 @@ import com.volacode.TimeAndAttendanceSystem.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -104,5 +108,44 @@ public class TimeSheetService {
         if (timeStamp.getBreakStart() == null) {
             throw new TimeSheetException("start break first");
         }
+    }
+
+    public String generatePaymentSlip(PaymentSlipRequest paymentSlipRequest) {
+        List<TimeStamp> timeStamps = timestampsRepository
+                .findByUserId(paymentSlipRequest.getUserId())
+                .stream().filter(timeStamp -> timeStamp.getCheckInTime().getYear() == paymentSlipRequest.getYear()
+                        && timeStamp.getCheckInTime().getMonth().getValue() ==
+                        paymentSlipRequest.getMonth())
+                .toList();
+
+        return """
+                Name: %s
+                Year: %s
+                Month: %s
+                Hours Worked: %s hours
+                Per hour fee: $30
+                                
+                Total Salary: $%s
+                """.formatted(getName(paymentSlipRequest.getUserId()), paymentSlipRequest.getYear(), getMonth(paymentSlipRequest),
+                getHoursWorked(timeStamps), getTotalSalary(timeStamps));
+
+        // send this payslip via mail
+    }
+
+    private String getName(long id) {
+        // get userdetails from userRepository
+        return "Victor Olamide";
+    }
+
+    private BigDecimal getTotalSalary(List<TimeStamp> timeStamps) {
+        return BigDecimal.valueOf(getHoursWorked(timeStamps)).multiply(BigDecimal.valueOf(30));
+    }
+
+    private int getHoursWorked(List<TimeStamp> timeStamps) {
+        return timeStamps.stream().mapToInt(TimeStamp::getTotalWorkHours).sum();
+    }
+
+    private String getMonth(PaymentSlipRequest paymentSlipRequest) {
+        return Month.of(paymentSlipRequest.getMonth()).name();
     }
 }

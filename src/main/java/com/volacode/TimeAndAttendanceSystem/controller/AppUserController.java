@@ -22,12 +22,12 @@ public class AppUserController {
     private final UserService userService;
 
 
-    @PostMapping("/add-employee")
+    @PostMapping("/add_employee")
     public ResponseEntity<?> addEmployee( @RequestBody AddEmployeeRequest request){
         return  ResponseEntity.status(HttpStatus.CREATED).body(userService.addEmployee(request));
     }
 
-    @PatchMapping("/modify-employee/{id}")
+    @PatchMapping("/modify_employee/{id}")
     public ResponseEntity<?> modifyEmployeeDetails(@PathVariable Long id, @RequestBody JsonPatch patch) {
         try {
             AppUserResponse modifyEmployee = userService.modifyEmployee(id, patch);
