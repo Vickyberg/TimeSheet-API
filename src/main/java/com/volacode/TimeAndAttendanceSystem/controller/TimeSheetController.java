@@ -33,8 +33,5 @@ public class TimeSheetController {
         return ResponseEntity.ok(timeSheetService.endBreak(timeSheetRequest));
     }
 
-    @PostMapping("/generate_payment_slip")
-    public ResponseEntity<String> generatePaymentSlip(@RequestBody PaymentSlipRequest paymentSlipRequest) {
-        return ResponseEntity.ok(timeSheetService.generatePaymentSlip(paymentSlipRequest));
-    }
+
 }

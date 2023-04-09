@@ -36,7 +36,7 @@ public class TimeSheetServiceImp implements TimeSheetService {
         for (TimeStamp timeStamp : timestampsRepository.findAll()) {
             if (timeStamp.getUserId() == userId) {
                 if (LocalDateTime.now().isAfter(timeStamp.getCheckInTime()) &&
-                        LocalDateTime.now().isBefore(timeStamp.getCheckInTime().plusMinutes(TIME_PERIOD))
+                        LocalDateTime.now().isBefore(timeStamp.getCheckInTime().plusHours(TIME_PERIOD))
                 ) {
 
                     throw new TimeSheetException("already clocked in for the day");
@@ -83,13 +83,13 @@ public class TimeSheetServiceImp implements TimeSheetService {
 
     public String startBreak(TimeSheetRequest timeSheetRequest) {
         TimeStamp timeStamp = getTimeSheet(timeSheetRequest);
-        ensureUserHssNoTClockedOut(timeStamp);
+        ensureUserHasNotClockedOut(timeStamp);
         timeStamp.setBreakStart(Utils.getCurrentTime());
         timestampsRepository.save(timeStamp);
         return "break started";
     }
 
-    private void ensureUserHssNoTClockedOut(TimeStamp timeStamp) {
+    private void ensureUserHasNotClockedOut(TimeStamp timeStamp) {
         if (timeStamp.getCheckOutTime() != null)
             throw new TimeSheetException("already clocked out. cannot start break");
 
@@ -104,7 +104,7 @@ public class TimeSheetServiceImp implements TimeSheetService {
     }
 
     private void ensureUserHasStartedBreak(TimeStamp timeStamp) {
-        ensureUserHssNoTClockedOut(timeStamp);
+        ensureUserHasNotClockedOut(timeStamp);
         if (timeStamp.getBreakStart() == null) {
             throw new TimeSheetException("start break first");
         }
@@ -144,6 +144,7 @@ public class TimeSheetServiceImp implements TimeSheetService {
     private int getHoursWorked(List<TimeStamp> timeStamps) {
         return timeStamps.stream().mapToInt(TimeStamp::getTotalWorkHours).sum();
     }
+
 
     private String getMonth(PaymentSlipRequest paymentSlipRequest) {
         return Month.of(paymentSlipRequest.getMonth()).name();

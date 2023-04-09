@@ -26,6 +26,8 @@ public class SecurityConfiguration {
         return httpSecurity
                 .cors().and().csrf().disable()
                 .authorizeHttpRequests()
+                .antMatchers("/api/timesheet/**")
+                .permitAll()
                 .antMatchers("/api/v1/login/**")
                 .permitAll()
                 .antMatchers("/api/admin/**").hasAuthority(Role.ADMIN.name())

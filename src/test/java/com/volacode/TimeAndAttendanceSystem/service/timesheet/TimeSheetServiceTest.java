@@ -2,6 +2,7 @@ package com.volacode.TimeAndAttendanceSystem.service.timesheet;
 
 import com.volacode.TimeAndAttendanceSystem.data.request.TimeSheetRequest;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
+import com.volacode.TimeAndAttendanceSystem.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,28 +10,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @SpringBootTest
 @RequiredArgsConstructor
-
 class TimeSheetServiceTest {
 
     @Autowired
     private  TimeSheetService timeSheetService;
     private TimeSheetRequest timeSheetRequest;
 
+
     @BeforeEach
      void setUp() {
+
         timeSheetRequest = TimeSheetRequest
                 .builder()
                 .userId(1)
-                .checkInTime(LocalDateTime.now())
+                .checkInTime(Utils.getCurrentTime())
                 .build();
-
     }
+
+
 
 
     @Test
@@ -52,6 +56,10 @@ class TimeSheetServiceTest {
 
     @Test
     void startBreakTest() {
+        String response = timeSheetService.startBreak(timeSheetRequest);
+        assertThat(response).isNotNull();
+        assertThat(response.contains("break end")).isTrue();
+
     }
 
     @Test
