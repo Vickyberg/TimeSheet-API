@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.fge.jackson.jsonpointer.JsonPointer;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.ReplaceOperation;
+import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
@@ -28,17 +29,15 @@ class UserServiceImplTest {
 
     @Autowired
     private UserService userService;
-    private AppUser request;
+    private AddEmployeeRequest request;
 
 
     @BeforeEach
     void setup(){
-        request =  AppUser
+        request =  AddEmployeeRequest
                 .builder()
-                .firstName("Victor")
-                .lastName("Olamide")
                 .email("olamide@gmail.com")
-                .role(Role.USER)
+                .password("Olamide")
                 .build();
     }
     @AfterEach
