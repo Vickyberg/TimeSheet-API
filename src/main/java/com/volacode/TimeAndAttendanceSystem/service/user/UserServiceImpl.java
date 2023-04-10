@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AppUserResponse modifyEmployee(Long id, JsonPatch userPatch) throws JsonPatchException, JsonProcessingException {
 
-        Optional<AppUser> foundUser = userRepository.findById(id);
+        var foundUser = userRepository.findById(id);
         if (foundUser.isEmpty()) throw new UserNotFoundException("user not found");
 
         AppUser modifiedUser = applyPatchToUser(userPatch, foundUser);
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     private AppUser applyPatchToUser(JsonPatch userPatch, Optional<AppUser> targetUser) throws JsonPatchException, JsonProcessingException {
 
-        var userNode = objectMapper.convertValue(targetUser, JsonNode.class);
+        JsonNode userNode = objectMapper.convertValue(targetUser, JsonNode.class);
         JsonNode patchedUserNode;
         try {
             patchedUserNode = userPatch.apply(userNode);
