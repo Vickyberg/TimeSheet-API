@@ -10,7 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserService {
 
-   AppUserResponse addEmployee(AppUser request);
+
+AppUserResponse addEmployee(AddEmployeeRequest request);
 
 
    AppUserResponse modifyEmployee(Long id, JsonPatch userPatch) throws JsonPatchException, JsonProcessingException;
@@ -20,7 +21,7 @@ public interface UserService {
 
    AppUser findUserByEmail(String email) throws UsernameNotFoundException;
 
-   AppUserResponse addEmployee(AddEmployeeRequest request);
+
 
 
 }

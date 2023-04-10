@@ -44,19 +44,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public AppUserResponse addEmployee(AppUser request) {
-
-        Optional<AppUser> foundUser = userRepository.findByEmail(request.getEmail());
-        if (foundUser.isPresent()) throw new TimeSheetException(
-                String.format("Email %s already exist", request.getEmail()));
-
-        AppUser user = mapper.map(request, AppUser.class);
-        AppUser savedUser = userRepository.save(user);
-        return addUserBuilder(savedUser);
-    }
-
-
-    @Override
     public AppUserResponse modifyEmployee(Long id, JsonPatch userPatch) throws JsonPatchException, JsonProcessingException {
 
         Optional<AppUser> foundUser = userRepository.findById(id);

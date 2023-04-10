@@ -29,8 +29,8 @@ class TimeSheetServiceTest {
 
         timeSheetRequest = TimeSheetRequest
                 .builder()
-                .userId(1)
                 .checkInTime(Utils.getCurrentTime())
+                .userId(1)
                 .build();
     }
 
