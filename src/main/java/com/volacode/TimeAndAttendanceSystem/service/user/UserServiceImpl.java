@@ -74,8 +74,10 @@ public class UserServiceImpl implements UserService {
     private AppUserResponse buildModifiedUserResponse(AppUser savedUser) {
 
         return AppUserResponse.builder()
+                .id(savedUser.getId())
                 .email(savedUser.getEmail())
                 .message("Modified Successfully")
+                .code(201)
                 .build();
     }
 
