@@ -122,7 +122,7 @@ public class TimeSheetServiceImp implements TimeSheetService {
                 Name: %s
                 Year: %s
                 Month: %s
-                Total Hours Worked: %s hours
+                Total Hours Worked: %s hour(s)
                 Per hour fee: $30
                                 
                 Total Salary: $%s
