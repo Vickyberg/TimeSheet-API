@@ -30,7 +30,7 @@ public class AppUserController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(userService.addEmployee(request));
     }
 
-    @PatchMapping("/modify_employee/{id}")
+    @PatchMapping(path = "/modify/{id}", consumes = "application/json-patch+json")
     public ResponseEntity<?> modifyEmployeeDetails(@PathVariable Long id, @RequestBody JsonPatch patch) {
         try {
             AppUserResponse modifyEmployee = userService.modifyEmployee(id, patch);

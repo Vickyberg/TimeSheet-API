@@ -6,6 +6,7 @@ import com.github.fge.jackson.jsonpointer.JsonPointer;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.ReplaceOperation;
 import com.volacode.TimeAndAttendanceSystem.data.request.AddEmployeeRequest;
+import com.volacode.TimeAndAttendanceSystem.data.request.ModifyUserRequest;
 import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
@@ -62,6 +63,7 @@ class UserServiceImplTest {
         AppUserResponse modifiedResponse = userService.addEmployee(request);
         try{
             JsonNode value =mapper.readTree("\"Ope\"");
+
             JsonPatch patch = new JsonPatch(List.of(new ReplaceOperation(
                     new JsonPointer("/firstName"),value)));
 
@@ -73,6 +75,7 @@ class UserServiceImplTest {
         assertThat(modifiedResponse).isNotNull();
 
         assertThat(userService.getUserById(1L).getFirstName()).isEqualTo("Ope");
+
 
     }
 
