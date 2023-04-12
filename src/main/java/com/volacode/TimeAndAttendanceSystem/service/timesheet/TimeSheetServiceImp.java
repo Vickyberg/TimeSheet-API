@@ -59,7 +59,7 @@ public class TimeSheetServiceImp implements TimeSheetService {
             timeStamp.setBreakEnd(Utils.getCurrentTime());
         }
         calculateTotalWorkHours(timeStamp);
-        return "clock out successfully at: " + timeStamp.getCheckOutTime();
+       return "clock out successfully at: " + timeStamp.getCheckOutTime();
     }
 
     private void calculateTotalWorkHours(TimeStamp timeStamp) {
