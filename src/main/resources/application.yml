@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: timesheetApi
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/timesheetDatabase?createDatabaseIfNotExist=true
+    username: root
+    password: Akinnusi098$
+  banner:
+    location: banner.txt
+tms:
+  admin:
+    email:
+  app:
+    SecretKey: 404E635266556A586E3272357538782SwecureUserF413F4428472B4B6250645367566B5970
+server:
+  port: 8083

@@ -12,7 +12,7 @@ import lombok.*;
 public class AppUserResponse {
 
 
-    private Long id;
+    private long id;
     private String email;
     private String message;
     private int code;

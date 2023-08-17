@@ -10,6 +10,7 @@ import com.volacode.TimeAndAttendanceSystem.data.response.AppUserResponse;
 import com.volacode.TimeAndAttendanceSystem.exceptions.TimeSheetException;
 import com.volacode.TimeAndAttendanceSystem.exceptions.UserNotFoundException;
 import com.volacode.TimeAndAttendanceSystem.models.AppUser;
+import com.volacode.TimeAndAttendanceSystem.models.Role;
 import com.volacode.TimeAndAttendanceSystem.repositories.AppUserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -105,4 +107,6 @@ public class UserServiceImpl implements UserService {
                 .code(201)
                 .build();
     }
+
+
 }
